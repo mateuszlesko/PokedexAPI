@@ -1,0 +1,41 @@
+[
+    {
+    "name":"Nindorina",
+    "generation":1,
+    "type1":"Poison",
+    "type2":"",
+    "species":"Poison Pin Pokémon",
+    "height":0.8,
+    "weigth":20.0,
+        "HP":70,
+        "attack":62,
+        "defense":67,
+        "speedAttack":55,
+        "speedDefence":55,
+        "speed":56,
+    "previous":"",
+    "next":"",
+    "modelUrl":"",
+    "texturesUrl":""
+},
+{
+    "name":"Bulbasaur",
+    "generation":1,
+    "type1":"Grass",
+    "type2":"Poison",
+    "species":"Seed Pokémon",
+    "height":0.7,
+    "weigth":6.9,
+    
+        "HP":45,
+        "attack":49,
+        "defense":49,
+        "speedAttack":65,
+        "speedDefence":65,
+        "speed":45,
+    "previous":"",
+    "next":"",
+    "modelUrl":"",
+    "texturesUrl":""
+}
+]

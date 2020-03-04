@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration.Binder;
+using Microsoft.Extensions.DependencyInjection.Abstractions;
 using PokeApi.Models;
 using PokeApi.Services;
 
@@ -28,8 +31,10 @@ namespace PokeApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
-            services.AddSingleton<IPokedexDatabaseSettings>(sp=>sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
+           services.AddSingleton<IPokedexDatabaseSettings>(sp =>
+        sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
             services.AddSingleton<PokemonService>();
+            services.AddSingleton<AttackService>();
             services.AddControllers();
         }
 

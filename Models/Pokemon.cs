@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace PokeApi.Models{
 
-    class Pokemon : IPokedexDatabaseSettings{
+    public class Pokemon{
         
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -25,28 +25,34 @@ namespace PokeApi.Models{
         public string Species {get;set;}
 
         [BsonElement("height")]
-        public float Height {get;set;}
+        public decimal Height {get;set;}
 
-        [BsonElement("weight")]
-        public string Weight {get;set;}
+        [BsonElement("weigth")]
+        public decimal Weight {get;set;}
 
         [BsonElement("HP")]
         public int HP {get;set;}
 
         [BsonElement("attack")]
-        public string Attack {get;set;}
+        public int Attack {get;set;}
 
         [BsonElement("defense")]
-        public string Defense {get;set;}
+        public int Defense {get;set;}
 
         [BsonElement("speedAttack")]
-        public string SpeedAttack {get;set;}
+        public int SpeedAttack {get;set;}
 
-        [BsonElement("speedDefense")]
-        public string SpeedDefense {get;set;}
+        [BsonElement("speedDefence")]
+        public int SpeedDefense {get;set;}
 
         [BsonElement("speed")]
-        public string Speed {get;set;}
+        public int Speed {get;set;}
+
+        [BsonElement("previous")]
+        public string Previous {get;set;}
+
+        [BsonElement("next")]
+        public string Next {get;set;}
 
         [BsonElement("modelUrl")]
         public string ModelUrl {get;set;}
@@ -54,10 +60,5 @@ namespace PokeApi.Models{
         [BsonElement("texturesUrl")]
         public string TexturesUrl {get;set;}
 
-    }
-    public interface IPokedexDatabaseSettings{
-        string PokemonsCollectionsName {get;set;}
-        string ConnectionString {get;set;}
-        string DatabaseName {get;set;}
     }
 }

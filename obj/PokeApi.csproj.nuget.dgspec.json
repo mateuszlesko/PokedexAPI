@@ -36,9 +36,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "(, )"
+              "version": "[2.10.2, )"
             }
           },
           "imports": [
