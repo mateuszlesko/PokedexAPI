@@ -5,5 +5,3 @@ https://stackoverflow.com/questions/33548370/redirect-from-apicontroller-action-
 join 2 collections mongodb
 https://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how
 https://www.axonize.com/blog/iot-technology/joining-collections-in-mongodb-using-the-c-driver-and-linq/
-
-db.devices.aggregate([{ “$lookup” : { “from” : “readings”, “localField” : “_id”, “foreignField” : “deviceId”, “as” :“joinedReadings”} }])

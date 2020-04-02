@@ -1,3 +1,4 @@
+using System;
 using PokeApi.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -17,7 +18,16 @@ namespace PokeApi.Services{
         public List<Attack> Get() => _attack.Find(attack=>true).ToList();
 
         public Attack Get(string id)=> _attack.Find<Attack>(attack => attack.Id == id).FirstOrDefault();
+        
+        public List<Attack> GetAttackFromPokemon(string PokeId){
+            IEnumerable<Attack> query =
+            from a in _attack.Find<Attack>(attack=>true).ToList()
+            where a.PokemonsIds.Contains(PokeId)
+            select a;
 
+            return query.ToList();
+        }
+        
         public Attack Create(Attack attack){
             _attack.InsertOne(attack);
             return attack;

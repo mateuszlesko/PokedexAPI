@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace PokeApi.Models{
 
@@ -29,8 +30,8 @@ namespace PokeApi.Models{
 
         [BsonElement("pp")]
         public int PP {get;set;}
-
-        // [BsonElement("pokemonId")]
-        // public string PokemonId {get;set;}
+        
+        [BsonElement("pokemonsIds")]
+        public string[] PokemonsIds {get;set;}
     }
 }

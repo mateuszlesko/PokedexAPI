@@ -20,7 +20,7 @@ namespace PokeApi.Controllers{
         }
 
         [HttpGet]
-        public ActionResult<List<Attack>>Get()=>
+        public ActionResult<List<Attack>> Get()=>
             _attackService.Get();
 
         [HttpGet("{id:length(24)}",Name="GetAttack")]
@@ -31,6 +31,12 @@ namespace PokeApi.Controllers{
             }
             return attack;
             
+        }
+        [Route("pokemon/{PokeId}")]
+        [HttpGet("{PokeId:length(24)}",Name="GetPokemonAttack")]
+        public ActionResult<List<Attack>> GetPokemonAttack(string PokeId){
+        var attack = _attackService.GetAttackFromPokemon(PokeId);
+            return attack;            
         }
 
         [HttpPost]
