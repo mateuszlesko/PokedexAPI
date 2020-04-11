@@ -5,3 +5,20 @@ https://stackoverflow.com/questions/33548370/redirect-from-apicontroller-action-
 join 2 collections mongodb
 https://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how
 https://www.axonize.com/blog/iot-technology/joining-collections-in-mongodb-using-the-c-driver-and-linq/
+
+identity:
+
+https://github.com/g0t4/aspnet-identity-mongo
+https://github.com/tugberkugurlu/AspNetCore.Identity.MongoDB
+biblioteka:
+https://www.nuget.org/packages/AspNet.Identity.MongoDB
+https://www.nuget.org/packages/AspNetCore.Identity.Mongo/
+
+https://www.blinkingcaret.com/2016/11/30/asp-net-identity-core-from-scratch/
+https://stackoverflow.com/questions/45446305/make-asp-net-identity-store-user-data-in-mongo-hosted-on-heroku
+https://alejandroruizvarela.blogspot.com/2018/09/aspnet-core-identity-with-cosmos-db.html
+https://alejandroruizvarela.blogspot.com/2018/11/aspnet-core-identity-with-cosmos-db.html
+
+https://developer.okta.com/blog/2020/01/02/mongodb-csharp-aspnet-datastore
+
+https://jasonwatmore.com/post/2019/01/08/aspnet-core-22-role-based-authorization-tutorial-with-example-api#users-controller-cs
