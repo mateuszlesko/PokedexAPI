@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using PokeApi.Models;
+using PokeApi.Entities;
 using PokeApi.Services;
+using PokeApi.Helpers;
 
 namespace PokeApi.Controllers{
 
@@ -14,16 +19,19 @@ namespace PokeApi.Controllers{
     public class PokemonController : ControllerBase{
         
         private readonly PokemonService _pokemonService;
-
-        public PokemonController(PokemonService pokemonService){
+        private readonly UserService _userService;
+        
+        public PokemonController(PokemonService pokemonService,UserService userService){
+            _userService = userService;
             _pokemonService = pokemonService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Pokemon>> Get()=>
         _pokemonService.Get();
     
-
+        [AllowAnonymous]
         [HttpGet("{id:length(24)}",Name="GetPokemon")]
         public ActionResult<Pokemon> Get(string id){
             var pokemon = _pokemonService.Get(id);
@@ -32,7 +40,7 @@ namespace PokeApi.Controllers{
             }
             return pokemon;
         }
-
+        [Authorize(Roles=Role.Admin)]
         [HttpPost]
         public ActionResult<Pokemon> Create(Pokemon pokemon){
             _pokemonService.Create(pokemon);

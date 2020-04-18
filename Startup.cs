@@ -40,14 +40,6 @@ namespace PokeApi
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
-            services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
-           services.AddSingleton<IPokedexDatabaseSettings>(sp =>
-        sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
-            services.AddSingleton<PokemonService>();
-            services.AddSingleton<AttackService>();
-            services.AddSingleton<UserService>();
-            services.AddControllers();
-
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x=>{
@@ -68,6 +60,13 @@ namespace PokeApi
             });
             services.AddScoped<IUserService,UserService>();
 
+            services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
+            services.AddSingleton<IPokedexDatabaseSettings>(sp =>
+            sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
+            services.AddSingleton<PokemonService>();
+            services.AddSingleton<AttackService>();
+            services.AddSingleton<UserService>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,13 +77,12 @@ namespace PokeApi
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
+            
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

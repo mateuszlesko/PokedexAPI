@@ -15,11 +15,12 @@ namespace PokeApi.Services{
         User Authenticate(string login,string password);
         IEnumerable<User> GetAll();
         User GetById(int id); 
+        bool IsAdmin(int id);
     }
 
     public class UserService:IUserService{
       
-      private List<User> _users = new List<User>(){
+      private static List<User> _users = new List<User>(){
            new User(){Id = 1, Login="Norman23", Password = "nr243ns",Role = Role.User},
            new User(){Id = 2, Login="Coco23", Password = "ere54!ns",Role = Role.Admin},
        };
@@ -38,8 +39,10 @@ namespace PokeApi.Services{
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor{
-                Subject = new ClaimsIdentity(new Claim[]{
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Role,user.Role)
                 }),
@@ -49,17 +52,14 @@ namespace PokeApi.Services{
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            user.Password = null;
-
-           return user;
+            EditUser(user);
+            
+           return user.WithoutPassword();
        }
         public IEnumerable<User> GetAll()
         {
             // return users without passwords
-            return _users.Select(x => {
-                x.Password = null;
-                return x;
-            });
+            return _users.WithoutPasswords();
         }
 
         public User GetById(int id) {
@@ -70,6 +70,18 @@ namespace PokeApi.Services{
                 user.Password = null;
 
             return user;
+        }
+        public bool IsAdmin(int id){
+            var user = _users.FirstOrDefault(x=>x.Id==id);
+            if(user != null){
+                user.Password = null;
+            }
+            return user.Role == "Admin";
+        }
+        public void EditUser(User user){
+            User oldUser = GetById(user.Id);
+            User newUser = new User(){Id = oldUser.Id, Login=oldUser.Login, Password = oldUser.Password,Role = oldUser.Role, Token = user.Token};
+            _users[user.Id-1] = newUser;
         }
     }
 }
