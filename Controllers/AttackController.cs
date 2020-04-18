@@ -8,7 +8,7 @@ using PokeApi.Models;
 using PokeApi.Services;
 
 namespace PokeApi.Controllers{
-    
+    [Authorization]
     [Route("api/attacks")]
     [ApiController]
     public class AttackController:ControllerBase{
@@ -20,9 +20,11 @@ namespace PokeApi.Controllers{
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<List<Attack>> Get()=>
             _attackService.Get();
-
+        
+        [AllowAnonymous]
         [HttpGet("{id:length(24)}",Name="GetAttack")]
         public ActionResult<Attack> Get(string id){
             var attack = _attackService.Get(id);
@@ -32,6 +34,7 @@ namespace PokeApi.Controllers{
             return attack;
             
         }
+
         [Route("pokemon/{PokeId}")]
         [HttpGet("{PokeId:length(24)}",Name="GetPokemonAttack")]
         public ActionResult<List<Attack>> GetPokemonAttack(string PokeId){
@@ -39,12 +42,14 @@ namespace PokeApi.Controllers{
             return attack;            
         }
 
+        [Authorize(Roles=Role.Admin)]
         [HttpPost]
         public ActionResult<Attack> Create(Attack attack){
             _attackService.Create(attack);
             return CreatedAtRoute("GetAttack",new {id = attack.Id.ToString()},attack);
         }
 
+        [Authorize(Roles=Role.Admin)]
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id,Attack attackIn){
             var attack = _attackService.Get(id);
@@ -56,6 +61,7 @@ namespace PokeApi.Controllers{
             return NoContent();
         }
 
+        [Authorize(Roles=Role.Admin)]
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id){
             var attack = _attackService.Get(id);

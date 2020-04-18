@@ -13,13 +13,12 @@ using PokeApi.Services;
 using PokeApi.Helpers;
 
 namespace PokeApi.Controllers{
-
+    [Authorize]
     [Route("api/pokemons")]
     [ApiController]
     public class PokemonController : ControllerBase{
         
         private readonly PokemonService _pokemonService;
-        private readonly UserService _userService;
         
         public PokemonController(PokemonService pokemonService,UserService userService){
             _userService = userService;
@@ -46,7 +45,7 @@ namespace PokeApi.Controllers{
             _pokemonService.Create(pokemon);
             return CreatedAtRoute("GetPokemon",new{ id = pokemon.Id.ToString()},pokemon);
         }
-
+        [Authorize(Roles=Role.Admin)]
         [HttpPut("{id:length(24)}")]
         public IActionResult Update(string id,Pokemon pokemonIn)
         {
@@ -59,7 +58,7 @@ namespace PokeApi.Controllers{
 
             return NoContent();
         }
-
+        [Authorize(Roles=Role.Admin)]
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id){
             var pokemon = _pokemonService.Get(id);
