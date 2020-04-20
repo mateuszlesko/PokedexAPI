@@ -1,14 +1,17 @@
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using PokeApi.Entities;
 using PokeApi.Models;
 using PokeApi.Services;
 
 namespace PokeApi.Controllers{
-    [Authorization]
+    [Authorize]
     [Route("api/attacks")]
     [ApiController]
     public class AttackController:ControllerBase{

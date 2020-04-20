@@ -21,7 +21,6 @@ namespace PokeApi.Controllers{
         private readonly PokemonService _pokemonService;
         
         public PokemonController(PokemonService pokemonService,UserService userService){
-            _userService = userService;
             _pokemonService = pokemonService;
         }
 

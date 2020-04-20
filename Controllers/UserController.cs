@@ -41,9 +41,9 @@ namespace PokeApi.Controllers{
         }
 
         [HttpGet("{id}",Name="GetById")]
-        public IActionResult GetById(int id){
+        public IActionResult GetById(string id){
 
-            var currentUserId = int.Parse(User.Identity.Name);
+            var currentUserId = User.Identity.Name;
             if(id != currentUserId && !User.IsInRole(Role.Admin)){
                 return Forbid();
             }
@@ -55,10 +55,10 @@ namespace PokeApi.Controllers{
             
             return Ok(user);
         }
-        [HttpGet("isAdmin/{id}",Name="IsAdmin")]
-        public string IsAdmin(int id){
-            var user = _userService.IsAdmin(id);
-            return ""+user;
-        }
+        // [HttpGet("isAdmin/{id}",Name="IsAdmin")]
+        // public string IsAdmin(string id){
+        //     var user = _userService.IsAdmin(id);
+        //     return ""+user;
+        // }
     }
 }
