@@ -17,6 +17,10 @@ namespace PokeApi.Services{
         User Authenticate(string login,string password);
         IEnumerable<User> GetAll();
         User GetById(string id); 
+        void Update(string login, User userIn);
+        void Remove(string login);
+        void Remove(User userIn);
+        User Create(User user);
     }
 
     public class UserService:IUserService{
@@ -33,7 +37,7 @@ namespace PokeApi.Services{
        }
 
        public User Authenticate(string login, string password){
-           var user = _user.Find<User>(usr => usr.Login == login).FirstOrDefault();
+           var user = _user.Find<User>(usr => usr.Login == login && usr.Password == HashHelpers.HashPassword(password)).FirstOrDefault();
             if(user == null)
                 return null;
 
@@ -75,7 +79,9 @@ namespace PokeApi.Services{
         }
 
         public User Create(User user){
+            user.Password = HashHelpers.HashPassword(user.Password);
             _user.InsertOne(user);
+            user = Authenticate(user.Login,user.Password);
             return user;
         }
 
@@ -83,7 +89,7 @@ namespace PokeApi.Services{
         
         public void Remove(User userIn)=>_user.DeleteOne(user=>user.Login == userIn.Login);
         
-        public void Remove(string login)=>_user.DeleteOne(user=>user.Login == login);
+        public void Remove(string id)=>_user.DeleteOne(user=>user.Id == id);
        
     }
 }

@@ -55,10 +55,34 @@ namespace PokeApi.Controllers{
             
             return Ok(user);
         }
-        // [HttpGet("isAdmin/{id}",Name="IsAdmin")]
-        // public string IsAdmin(string id){
-        //     var user = _userService.IsAdmin(id);
-        //     return ""+user;
-        // }
+
+        [AllowAnonymous]
+        [HttpPost("",Name="Create")]
+        public IActionResult Create(User user){
+            _userService.Create(user);
+            return Ok(user);
+        }
+
+        [HttpDelete("",Name="Delete")]
+        public IActionResult Remove(string id){
+            var currentUserId = User.Identity.Name;
+            if(id != currentUserId && !User.IsInRole(Role.Admin)){
+                return Forbid();
+            }
+            _userService.Remove(id);
+
+            return Ok(null);
+        }
+        [HttpPut("",Name="Update")]
+        public IActionResult Update(string id, User user){
+            var currentUserId = User.Identity.Name;
+            if(id != currentUserId && !User.IsInRole(Role.Admin)){
+                return Forbid();
+            }
+            _userService.Update(id,user);
+            user.Password = null;
+            user.Token = null;
+            return Ok(user);
+        }
     }
 }
