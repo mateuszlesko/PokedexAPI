@@ -60,5 +60,8 @@ namespace PokeApi.Models{
         [BsonElement("texturesUrl")]
         public string TexturesUrl {get;set;}
 
-    }
+        private System.Collections.Generic.List<Attack> Attacks {get;set;}
+
+        public System.Collections.Generic.List<Attack> GetAttacks()=>Attacks;
+}
 }
