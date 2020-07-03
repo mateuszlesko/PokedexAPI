@@ -38,10 +38,11 @@ namespace PokeApi.Controllers{
             
         }
 
+        [AllowAnonymous]
         [Route("pokemon/{PokeId}")]
         [HttpGet("{PokeId:length(24)}",Name="GetPokemonAttack")]
         public ActionResult<List<Attack>> GetPokemonAttack(string PokeId){
-        var attack = _attackService.GetAttackFromPokemon(PokeId);
+        var attack = _attackService.GetAttackForPokemon(PokeId);
             return attack;            
         }
 

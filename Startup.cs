@@ -15,10 +15,12 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration.Binder;
 using Microsoft.Extensions.DependencyInjection.Abstractions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.IdentityModel.Tokens;
 using PokeApi.Helpers;
 using PokeApi.Models;
 using PokeApi.Services;
+using PokeApi.Factories;
 
 namespace PokeApi
 {
@@ -63,10 +65,12 @@ namespace PokeApi
             services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
             services.AddSingleton<IPokedexDatabaseSettings>(sp =>
             sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
-            services.AddSingleton<PokemonService>();
             services.AddSingleton<AttackService>();
+            services.AddSingleton<PokemonService>();
             services.AddSingleton<UserService>();
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(options=>options.UseMemberCasing());
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

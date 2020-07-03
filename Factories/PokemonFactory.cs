@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PokeApi.Models;
 using PokeApi.Helpers.DataStructures;
 using PokeApi.Factories.Interfaces;
+using System.Net.Http;
 namespace PokeApi.Factories{
 
     public class PokemonFactory:IModelFactory<Pokemon>{
@@ -37,6 +39,5 @@ namespace PokeApi.Factories{
         public List<Pokemon> GetAllElements(){
             return pokemons;
         }
-
     }
 }

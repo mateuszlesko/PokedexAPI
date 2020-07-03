@@ -15,21 +15,24 @@ namespace PokeApi.Factories{
             Fill();
         }
         public Boolean IsEmpty(){return attacks == null;}
+
         public virtual void Fill(){
                 if(!IsEmpty())
                     foreach(Attack attack in attacks)
                         bstAttack.Put(attack.Id,attack);
         }
+
         public List<Attack> GetAllElements(){
                 return attacks;
         }
+
         public virtual void PutElement(Attack model){bstAttack.Put(model.Id,model);}
-            public virtual void DeleteElement(String id){bstAttack.Delete(id);}
-            public Attack GetElement(String id) {
-                Attack attack = bstAttack.Get(id);
-                if(attack == null)
-                    return null;
-                return attack;
-            }
+        public virtual void DeleteElement(String id){bstAttack.Delete(id);}
+        public Attack GetElement(String id) {
+            Attack attack = bstAttack.Get(id);
+            if(attack == null)
+                return null;
+            return attack;
+        }
     }
 }

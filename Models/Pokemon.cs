@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace PokeApi.Models{
 
@@ -59,9 +60,12 @@ namespace PokeApi.Models{
 
         [BsonElement("texturesUrl")]
         public string TexturesUrl {get;set;}
-
-        private System.Collections.Generic.List<Attack> Attacks {get;set;}
+        
+        [JsonProperty("AttacksList")]
+        public System.Collections.Generic.List<Attack> Attacks {get;set;}
 
         public System.Collections.Generic.List<Attack> GetAttacks()=>Attacks;
+
+        public void SetAttacks( System.Collections.Generic.List<Attack> list){Attacks = list;}
 }
 }
