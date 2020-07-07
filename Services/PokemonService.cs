@@ -14,15 +14,35 @@ namespace PokeApi.Services{
         
         private readonly IMongoCollection<Pokemon> _pokemons;
         private readonly PokemonFactory pokemonFactory;
-        private readonly IHttpClientFactory _clientFactory;
-        public PokemonService(IPokedexDatabaseSettings settings,IHttpClientFactory clientFactor){
 
-            _clientFactory = clientFactor;
+        public PokemonService(IPokedexDatabaseSettings settings){
+
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             _pokemons = database.GetCollection<Pokemon>(settings.PokemonsCollectionsName);
-            pokemonFactory = new PokemonFactory(Get());
+
+            pokemonFactory = new PokemonFactory(SetPokemonsAttacks(settings));
+        }
+        
+        private List<Pokemon> SetPokemonsAttacks(IPokedexDatabaseSettings settings){
+            List<Pokemon> pokes = Get();
+            for(int i = 0; i < pokes.Count; i++ ){
+                pokes[i].Attacks = GetPokemonAttacks(settings, pokes[i].Id);
+            }
+            return pokes;
+        }
+
+        private List<Attack> GetPokemonAttacks(IPokedexDatabaseSettings settings, string PokeId){
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            IMongoCollection<Attack> _attack = database.GetCollection<Attack>(settings.AttacksCollectionsName);
+            IEnumerable<Attack> query =
+            from a in _attack.Find<Attack>(attack=>true).ToList()
+            where a.PokemonsIds.Contains(PokeId)
+            select a;
+
+            return query.ToList();
         }
 
         public List<Pokemon> Get(){ 
@@ -38,6 +58,7 @@ namespace PokeApi.Services{
                 
             return pokemonFactory.GetElement(id);
         }
+
         public Pokemon Create(Pokemon poke){
             _pokemons.InsertOne(poke);
             return poke;

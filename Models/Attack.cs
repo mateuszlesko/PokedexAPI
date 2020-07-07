@@ -32,6 +32,6 @@ namespace PokeApi.Models{
         public int PP {get;set;}
         
         [BsonElement("pokemonsIds")]
-        public string[] PokemonsIds {get;set;}
+        public List<string> PokemonsIds {get;set;}
     }
 }
