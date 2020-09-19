@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using PokeApi.Entities;
 using PokeApi.Models;
 using PokeApi.Services;
+using PokeApi.Services.Interfaces;
 
 namespace PokeApi.Controllers{
    

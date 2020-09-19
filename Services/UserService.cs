@@ -10,19 +10,10 @@ using MongoDB.Driver;
 using PokeApi.Entities;
 using PokeApi.Models;
 using PokeApi.Helpers;
+using PokeApi.Services.Interfaces;
 
 namespace PokeApi.Services{
-    
-    public interface IUserService{
-        User Authenticate(string login,string password);
-        IEnumerable<User> GetAll();
-        User GetById(string id); 
-        void Update(string login, User userIn);
-        void Remove(string login);
-        void Remove(User userIn);
-        User Create(User user);
-    }
-
+   
     public class UserService:IUserService{
 
        private readonly AppSettings _appSettings;

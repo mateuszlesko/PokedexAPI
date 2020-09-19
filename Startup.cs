@@ -20,7 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using PokeApi.Helpers;
 using PokeApi.Models;
 using PokeApi.Services;
-using PokeApi.Factories;
+using PokeApi.Services.Interfaces;
 
 namespace PokeApi
 {
@@ -65,7 +65,6 @@ namespace PokeApi
             services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
             services.AddSingleton<IPokedexDatabaseSettings>(sp =>
             sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
-            services.AddSingleton<AttackService>();
             services.AddSingleton<PokemonService>();
             services.AddSingleton<UserService>();
             services.AddControllers()

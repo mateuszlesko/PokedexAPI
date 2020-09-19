@@ -1,6 +1,5 @@
 https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio-code
-move to antoher controller
-https://stackoverflow.com/questions/33548370/redirect-from-apicontroller-action-to-other-mvc-controller-action#33548484
+
 
 join 2 collections mongodb
 https://stackoverflow.com/questions/5681851/mongodb-combine-data-from-multiple-collections-into-one-how
@@ -22,3 +21,7 @@ https://alejandroruizvarela.blogspot.com/2018/11/aspnet-core-identity-with-cosmo
 https://developer.okta.com/blog/2020/01/02/mongodb-csharp-aspnet-datastore
 
 https://jasonwatmore.com/post/2019/01/08/aspnet-core-22-role-based-authorization-tutorial-with-example-api#users-controller-cs
+
+async multi layer api:
+https://medium.com/swlh/building-a-nice-multi-layer-net-core-3-api-c68a9ef16368
+https://github.com/alopes2/Medium-MyMusic/tree/master/MyMusic.Api

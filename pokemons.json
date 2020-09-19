@@ -1,41 +1,29 @@
 [
     {
-    "name":"Nindorina",
-    "generation":1,
-    "type1":"Poison",
+    "_id":1,
+    "name":"Treecko",
+    "generation":3,
+    "type1":"grass",
     "type2":"",
-    "species":"Poison Pin Pokémon",
-    "height":0.8,
-    "weigth":20.0,
-        "HP":70,
-        "attack":62,
-        "defense":67,
-        "speedAttack":55,
-        "speedDefence":55,
-        "speed":56,
-    "previous":"",
-    "next":"",
-    "modelUrl":"",
-    "texturesUrl":""
-},
-{
-    "name":"Bulbasaur",
-    "generation":1,
-    "type1":"Grass",
-    "type2":"Poison",
-    "species":"Seed Pokémon",
-    "height":0.7,
-    "weigth":6.9,
-    
-        "HP":45,
-        "attack":49,
-        "defense":49,
+    "species":"Wood Gecko Pokémon",
+    "height":0.5,
+    "weigth":5.0,
+    "stats":{
+        "HP":40,
+        "attack":45,
+        "defense":35,
         "speedAttack":65,
-        "speedDefence":65,
-        "speed":45,
+        "speedDefence":55,
+        "speed":70
+    },
+    "attacks":[
+        { "unclockedAt":1,"name":"Leer","type":"normal","power":20,"PP":30},
+        { "unclockedAt":1,"name":"Pound","type":"normal","power":40,"PP":15}
+    ],
     "previous":"",
     "next":"",
-    "modelUrl":"",
-    "texturesUrl":""
+    "iconUrl":"static/img/pokemons/Treecko",
+    "frontUrl":"static/img/pokemons/Treecko",
+    "backUrl":"static/img/pokemons/Treecko"
 }
 ]

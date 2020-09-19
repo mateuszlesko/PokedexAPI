@@ -26,43 +26,50 @@ namespace PokeApi.Controllers{
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<Pokemon>> Get()=>_pokemonService.Get();
+        public ActionResult<List<Pokemon>> Get()=> _pokemonService.Get();
     
         [AllowAnonymous]
         [HttpGet("{id:length(24)}",Name="GetPokemon")]
-        public ActionResult<Pokemon> Get(string id){
-            var pokemon = _pokemonService.Get(id);
+        public async Task<ActionResult<Pokemon>> Get(string id){
+            var pokemon = await _pokemonService.Get(id);
             if(pokemon == null){
                 return NotFound();
             }
             return pokemon;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult<List<Pokemon>> GetCollectionOfPokemon(IEnumerable<string> pokemonIds){
+            List<Pokemon> pokemonCollection = null;
+            return pokemonCollection;
+        }
+
         [Authorize(Roles=Role.Admin)]
         [HttpPost]
-        public ActionResult<Pokemon> Create(Pokemon pokemon){
-            _pokemonService.Create(pokemon);
+        public async Task<ActionResult<Pokemon>> Create(Pokemon pokemon){
+            await _pokemonService.Create(pokemon);
             return CreatedAtRoute("GetPokemon",new{ id = pokemon.Id.ToString()},pokemon);
         }
 
         [Authorize(Roles=Role.Admin)]
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id,Pokemon pokemonIn)
+        public async Task<IActionResult> Update(string id,Pokemon pokemonIn)
         {
             var pokemon = _pokemonService.Get(id);
             if(pokemon == null){
                 return NotFound();
             }
 
-            _pokemonService.Update(id,pokemonIn);
+            await _pokemonService.Update(id,pokemonIn);
 
             return NoContent();
         }
 
         [Authorize(Roles=Role.Admin)]
         [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id){
-            var pokemon = _pokemonService.Get(id);
+        public async Task<IActionResult> Delete(string id){
+            var pokemon = await _pokemonService.Get(id);
             if(pokemon == null){
                 return NotFound();
             }
