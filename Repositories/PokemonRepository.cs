@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using PokeApi.Models;
 using MongoDB.Driver;
 using PokeApi.Repositories.Interfaces;
+using PokeApi.Helpers;
+using PokeApi.Helpers.DataStructures;
 namespace PokeApi.Repositories{
 
     public class PokemonRepository:IModelRepository<Pokemon>{
@@ -12,6 +14,8 @@ namespace PokeApi.Repositories{
         private readonly IMongoCollection<Pokemon> pokemonCollection;
         private IPokedexDatabaseSettings settings;
         private List<Pokemon> pokemons;
+
+        private HashTable<Pokemon> pokemonTable;
 
         public PokemonRepository(IPokedexDatabaseSettings settings){
             this.settings = settings;
@@ -21,6 +25,12 @@ namespace PokeApi.Repositories{
             pokemonCollection = database.GetCollection<Pokemon>(settings.PokemonsCollectionsName);
             
             pokemons = pokemonCollection.Find(pokemon => true).ToList();
+            pokemonTable = new HashTable<Pokemon>(19);
+        }
+        private void FillHashTable(List<Pokemon> collection){
+            foreach(Pokemon element in collection){
+                pokemonTable.AddElement(element);
+            }
         }
 
         public Boolean IsEmpty(){return pokemons == null;}

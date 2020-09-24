@@ -23,5 +23,10 @@ namespace PokeApi.Models{
         [BsonElement("attacks")]
         public System.Collections.Generic.List<Attack> Attacks {get;set;}
 
+        public override string ToString()
+        {
+            return Id.ToString();
+        }
+
     }
 }

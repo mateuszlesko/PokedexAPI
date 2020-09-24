@@ -38,8 +38,10 @@ namespace PokeApi.Controllers{
             return pokemon;
         }
 
-        [HttpGet]
+        
         [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/pokemons/pokemonCollection")]
         public ActionResult<List<Pokemon>> GetCollectionOfPokemon(IEnumerable<string> pokemonIds){
             List<Pokemon> pokemonCollection = null;
             return pokemonCollection;
