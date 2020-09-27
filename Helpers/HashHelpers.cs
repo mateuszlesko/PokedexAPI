@@ -9,6 +9,9 @@ namespace PokeApi.Helpers{
             int hashValue = data.GetHashCode();
             return ((hashValue & 0x7fffffff)%BIGPRIMENUMBER)%tableLength;
         }
+        public static int ModularHashing(string data,int tableLength){
+            return int.Parse(data,System.Globalization.NumberStyles.HexNumber) % tableLength;
+        }
         public static string HashPassword(string password){
             using (SHA256 sha256Hash = SHA256.Create())  
             {  

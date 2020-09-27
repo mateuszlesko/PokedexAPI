@@ -13,8 +13,6 @@ namespace PokeApi.Repositories{
         
         private readonly IMongoCollection<Pokemon> pokemonCollection;
         private IPokedexDatabaseSettings settings;
-        private List<Pokemon> pokemons;
-
         private HashTable<Pokemon> pokemonTable;
 
         public PokemonRepository(IPokedexDatabaseSettings settings){
@@ -23,17 +21,15 @@ namespace PokeApi.Repositories{
             var database = client.GetDatabase(settings.DatabaseName);
 
             pokemonCollection = database.GetCollection<Pokemon>(settings.PokemonsCollectionsName);
-            
-            pokemons = pokemonCollection.Find(pokemon => true).ToList();
             pokemonTable = new HashTable<Pokemon>(19);
+            FillHashTable(pokemonCollection);
         }
-        private void FillHashTable(List<Pokemon> collection){
+        private void FillHashTable(IMongoCollection<Pokemon> _pokemonCollection){
+            List<Pokemon> collection = _pokemonCollection.Find(pokemon => true).ToList();
             foreach(Pokemon element in collection){
                 pokemonTable.AddElement(element);
             }
         }
-
-        public Boolean IsEmpty(){return pokemons == null;}
 
         public async Task PutElement(Pokemon model)
         {
@@ -51,17 +47,16 @@ namespace PokeApi.Repositories{
 
         public async Task Update(string Id, Pokemon pokemon ){
             await pokemonCollection.ReplaceOneAsync(poke=>poke.Id == Id,pokemon);
-            await PutElement(pokemon);
         }
 
         public List<Pokemon> GetAllElements(){
-            return pokemons;
+            return pokemonCollection.Find(pokemon => true).ToList();
         }
 
         public List<Pokemon> GetElementsCollection(IEnumerable<string> elementIds){
             List<Pokemon> elements = new List<Pokemon>();
             foreach(string id in elementIds)
-                elements.Add(pokemons.FirstOrDefault(element => element.Id == id));
+                elements.Add(pokemonTable.GetElement(id));
             return elements;
         }
     }
