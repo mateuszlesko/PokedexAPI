@@ -81,7 +81,7 @@ namespace PokeApi
             }
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             
             app.UseRouting();

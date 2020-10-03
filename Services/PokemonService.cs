@@ -15,16 +15,16 @@ namespace PokeApi.Services{
             pokemonRepository = new PokemonRepository(settings);
         }
         
-        public  List<Pokemon> Get(){ 
-            return pokemonRepository.GetAllElements();    
+        public  async Task<List<Pokemon>> Get(){ 
+            return await pokemonRepository.GetAllElements();    
         }
 
         public async Task<Pokemon> Get(string id){      
             return await pokemonRepository.GetElement(id);
         }
 
-        public List<Pokemon> GetCollection(IEnumerable<string> ids){
-            return pokemonRepository.GetElementsCollection(ids);
+        public async Task<List<Pokemon>> GetCollection(IEnumerable<string> ids){
+            return await pokemonRepository.GetElementsCollection(ids);
         }
 
         public async Task<Pokemon> Create(Pokemon poke){

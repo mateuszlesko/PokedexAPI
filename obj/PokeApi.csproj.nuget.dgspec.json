@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/leskers606/Documents/hoennstadium/PokeApi/PokeApi.csproj": {}
+    "/home/leskers606/Documents/hoeannstadium/PokeApi/PokeApi.csproj": {}
   },
   "projects": {
-    "/home/leskers606/Documents/hoennstadium/PokeApi/PokeApi.csproj": {
+    "/home/leskers606/Documents/hoeannstadium/PokeApi/PokeApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/leskers606/Documents/hoennstadium/PokeApi/PokeApi.csproj",
+        "projectUniqueName": "/home/leskers606/Documents/hoeannstadium/PokeApi/PokeApi.csproj",
         "projectName": "PokeApi",
-        "projectPath": "/home/leskers606/Documents/hoennstadium/PokeApi/PokeApi.csproj",
+        "projectPath": "/home/leskers606/Documents/hoeannstadium/PokeApi/PokeApi.csproj",
         "packagesPath": "/home/leskers606/.nuget/packages/",
-        "outputPath": "/home/leskers606/Documents/hoennstadium/PokeApi/obj/",
+        "outputPath": "/home/leskers606/Documents/hoeannstadium/PokeApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/leskers606/.nuget/NuGet/NuGet.Config"

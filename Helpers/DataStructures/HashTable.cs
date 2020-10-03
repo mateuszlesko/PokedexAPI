@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PokeApi.Helpers;
 namespace PokeApi.Helpers.DataStructures{
     public class HashTable<Element>{
@@ -30,11 +31,11 @@ namespace PokeApi.Helpers.DataStructures{
             hashTable[index].AddToList(element);
         }
 
-        public Element GetElement(string key){
-            int length = key.Length;
-            key = $"{key[length-2]+key[length-1]}";
-            int index = HashHelpers.ModularHashing(key,313,N);
-            return hashTable[index].GetElement(key);
+        public async ValueTask<Element> GetElement(string id){
+            int length = id.Length;
+            string key = $"{id[length-2]+id[length-1]}";
+            int index = HashHelpers.ModularHashing(key,N);
+            return await new ValueTask<Element>(hashTable[index].GetElement(id));
         }
     }
 }

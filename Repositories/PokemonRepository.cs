@@ -49,14 +49,15 @@ namespace PokeApi.Repositories{
             await pokemonCollection.ReplaceOneAsync(poke=>poke.Id == Id,pokemon);
         }
 
-        public List<Pokemon> GetAllElements(){
-            return pokemonCollection.Find(pokemon => true).ToList();
+        public async Task<List<Pokemon>> GetAllElements(){
+            return await pokemonCollection.Find(pokemon => true).ToListAsync();
         }
 
-        public List<Pokemon> GetElementsCollection(IEnumerable<string> elementIds){
+        public async Task<List<Pokemon>> GetElementsCollection(IEnumerable<string> elementIds){
             List<Pokemon> elements = new List<Pokemon>();
-            foreach(string id in elementIds)
-                elements.Add(pokemonTable.GetElement(id));
+            foreach(string id in elementIds){
+                elements.Add(await pokemonTable.GetElement(id));
+                }
             return elements;
         }
     }

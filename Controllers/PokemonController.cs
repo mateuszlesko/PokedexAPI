@@ -26,7 +26,7 @@ namespace PokeApi.Controllers{
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<Pokemon>> Get()=> _pokemonService.Get();
+        public async Task<ActionResult<List<Pokemon>>> Get()=> await _pokemonService.Get();
     
         [AllowAnonymous]
         [HttpGet("{id:length(24)}",Name="GetPokemon")]
@@ -41,12 +41,12 @@ namespace PokeApi.Controllers{
         
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/pokemons/pokemonCollection")]
-        public ActionResult<List<Pokemon>> GetCollectionOfPokemon(IEnumerable<string> pokemonIds){
-            List<Pokemon> pokemonCollection = null;
-            return pokemonCollection;
+        [Route("/api/pokemons/pokemonCollection")]
+        public async Task<IEnumerable<Pokemon>> GetCollectionOfPokemon(IEnumerable<string> pokemonIds){
+            IEnumerable<Pokemon> pokemons = await _pokemonService.GetCollection(pokemonIds);
+            return pokemons;
         }
-
+       
         [Authorize(Roles=Role.Admin)]
         [HttpPost]
         public async Task<ActionResult<Pokemon>> Create(Pokemon pokemon){
