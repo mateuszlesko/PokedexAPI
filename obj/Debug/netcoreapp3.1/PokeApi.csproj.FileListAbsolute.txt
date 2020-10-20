@@ -144,9 +144,8 @@
 /home/leskers606/Documents/hoennstadium/PokeApi/obj/Debug/netcoreapp3.1/PokeApi.pdb
 /home/leskers606/Documents/hoennstadium/PokeApi/obj/Debug/netcoreapp3.1/PokeApi.genruntimeconfig.cache
 /home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/appsettings.Development.json
-/home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/pokemons.json
-/home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/appsettings.json
+/home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/PokeApi
 /home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/PokeApi.deps.json
 /home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/PokeApi.runtimeconfig.json

@@ -7,7 +7,7 @@ namespace PokeApi.Entities{
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id{get;set;}
-        
+
         [BsonElement("login")]
         public string Login{get;set;}
         
