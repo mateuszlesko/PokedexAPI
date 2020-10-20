@@ -38,7 +38,36 @@ namespace PokeApi.Controllers{
             return pokemon;
         }
 
-        
+        [AllowAnonymous]
+        [Route("image/logo/{id}",Name="GetLogoImg")]
+         public async Task<IActionResult> GetLogoImage(string id){
+            Pokemon pokemon = await _pokemonService.Get(id);
+            if(pokemon == null){
+                return NotFound();
+            }
+            return File(await ImageService.ReadImageAsync(pokemon.Name.ToLower(),"logo.png"),"image/png","logo.png");
+        }
+
+        [AllowAnonymous]
+        [HttpGet("image/front/{id}",Name="GetFrontImg")]
+        public async Task<ActionResult> GetFrontImage(string id){
+            Pokemon pokemon = await _pokemonService.Get(id);
+            if(pokemon == null){
+                return NotFound();
+            }
+            return File(await ImageService.ReadImageAsync(pokemon.Name.ToLower(),"front.png"),"image/png","front.png");
+        }
+
+        [AllowAnonymous]
+        [Route("image/back/{id}",Name="GetBackImg")]
+         public async Task<IActionResult> GetBackImage(string id){
+            Pokemon pokemon = await _pokemonService.Get(id);
+            if(pokemon == null){
+                return NotFound();
+            }
+            return File(await ImageService.ReadImageAsync(pokemon.Name.ToLower(),"back.png"),"image/png","back.png");
+        }
+
         [AllowAnonymous]
         [HttpGet()]
         [Route("/api/pokemons/pokemonCollection")]
