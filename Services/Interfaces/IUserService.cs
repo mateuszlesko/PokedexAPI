@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using PokeApi.Entities;
+using PokeApi.Models;
 
 namespace PokeApi.Services.Interfaces{
     public interface IUserService{

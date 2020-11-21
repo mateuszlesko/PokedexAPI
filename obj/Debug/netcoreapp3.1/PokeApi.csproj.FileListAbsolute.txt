@@ -191,3 +191,4 @@
 /home/leskers606/Documents/hoeannstadium/PokeApi/obj/Debug/netcoreapp3.1/PokeApi.dll
 /home/leskers606/Documents/hoeannstadium/PokeApi/obj/Debug/netcoreapp3.1/PokeApi.pdb
 /home/leskers606/Documents/hoeannstadium/PokeApi/obj/Debug/netcoreapp3.1/PokeApi.genruntimeconfig.cache
+/home/leskers606/Documents/hoeannstadium/PokeApi/bin/Debug/netcoreapp3.1/DatabaseFiles/pokemonsMongoData.json

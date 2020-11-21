@@ -1,7 +1,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using PokeApi.Entities;
 
-namespace PokeApi.Entities{
+namespace PokeApi.Models{
     public class User{
         
         [BsonId]

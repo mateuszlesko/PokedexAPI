@@ -5,9 +5,9 @@ namespace PokeApi.Repositories.Interfaces
 {
     public interface IModelRepository<Model>
     {
-        public Task<List<Model>> GetAllElements();
-        public Task<Model> GetElement(String id);
-        public Task PutElement(Model model);
-        public void DeleteElement(String id);
+        Task<List<Model>> GetAllElements();
+        Task<Model> GetElement(String id);
+        Task PutElement(Model model);
+        void DeleteElement(String id);
     }
 }
