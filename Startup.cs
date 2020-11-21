@@ -21,6 +21,8 @@ using PokeApi.Helpers;
 using PokeApi.Models;
 using PokeApi.Services;
 using PokeApi.Services.Interfaces;
+using PokeApi.Repositories;
+using PokeApi.Repositories.Interfaces;
 
 namespace PokeApi
 {
@@ -65,8 +67,11 @@ namespace PokeApi
             services.Configure<PokedexDatabaseSettings>(Configuration.GetSection(nameof(PokedexDatabaseSettings)));
             services.AddSingleton<IPokedexDatabaseSettings>(sp =>
             sp.GetRequiredService<IOptions<PokedexDatabaseSettings>>().Value);
-            services.AddSingleton<PokemonService>();
-            services.AddSingleton<UserService>();
+            
+            services.AddScoped<IPokemonService,PokemonService>();
+            services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IModelRepository<Pokemon>,PokemonRepository>();
             services.AddControllers()
             .AddNewtonsoftJson(options=>options.UseMemberCasing());
             services.AddHttpClient();

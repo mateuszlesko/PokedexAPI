@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using PokeApi.Helpers;
 using PokeApi.Entities;
 using PokeApi.Models;
 using PokeApi.Services;
@@ -17,10 +19,27 @@ namespace PokeApi.Controllers{
     [ApiController]
     [Route("api/users")]
     public class UserController:ControllerBase{
-        private IUserService _userService;
 
-        public UserController(IUserService userService){
-            _userService = userService;
+        private UserService _userService;
+        
+        public UserController(IPokedexDatabaseSettings settings, IOptions<AppSettings> appSettings){
+            _userService = new UserService(settings,appSettings);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("createAccount")]
+        public ActionResult<User> Create([FromBody] AuthenticateModel model){
+            User userCreate = new User(){
+                Login = model.Login,
+                Password = model.Password,
+                Role = "user",
+            };
+            bool result = _userService.CreateUser(userCreate);
+            if(!result)
+                return BadRequest(new {message = "Login was taken by someone else"});
+            else
+                userCreate = _userService.Authenticate(model.Login, model.Password);
+            return userCreate;
         }
 
         [AllowAnonymous]
@@ -37,7 +56,7 @@ namespace PokeApi.Controllers{
         [Authorize(Roles=Role.Admin)]
         [HttpGet]
         public IActionResult GetAll(){
-            var users = _userService.GetAll();
+            var users = _userService.GetAllUsers();
             return Ok(users);
         }
 
@@ -49,41 +68,17 @@ namespace PokeApi.Controllers{
                 return Forbid();
             }
 
-            var user = _userService.GetById(id);
+            var user = _userService.GetUserById(id);
             if(user == null){
                 return NotFound();
             }
             
             return Ok(user);
         }
-
-        [AllowAnonymous]
-        [HttpPost("",Name="Create")]
-        public IActionResult Create(User user){
-            _userService.Create(user);
-            return Ok(user);
-        }
-
-        [HttpDelete("",Name="Delete")]
-        public IActionResult Remove(string id){
-            var currentUserId = User.Identity.Name;
-            if(id != currentUserId && !User.IsInRole(Role.Admin)){
-                return Forbid();
-            }
-            _userService.Remove(id);
-
-            return Ok(null);
-        }
-        [HttpPut("",Name="Update")]
-        public IActionResult Update(string id, User user){
-            var currentUserId = User.Identity.Name;
-            if(id != currentUserId && !User.IsInRole(Role.Admin)){
-                return Forbid();
-            }
-            _userService.Update(id,user);
-            user.Password = null;
-            user.Token = null;
-            return Ok(user);
-        }
+        // [HttpGet("isAdmin/{id}",Name="IsAdmin")]
+        // public string IsAdmin(string id){
+        //     var user = _userService.IsAdmin(id);
+        //     return ""+user;
+        // }
     }
 }

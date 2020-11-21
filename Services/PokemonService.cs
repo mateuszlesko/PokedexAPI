@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using PokeApi.Models;
 using PokeApi.Repositories;
+using PokeApi.Services.Interfaces;
 
 namespace PokeApi.Services{
     
-    public class PokemonService : Interfaces.IPokemonService{
+    public class PokemonService : IPokemonService{
     
         private readonly PokemonRepository pokemonRepository;
 

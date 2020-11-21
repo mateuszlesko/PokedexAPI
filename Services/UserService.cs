@@ -10,77 +10,32 @@ using MongoDB.Driver;
 using PokeApi.Entities;
 using PokeApi.Models;
 using PokeApi.Helpers;
-using PokeApi.Services.Interfaces;
+using PokeApi.Repositories;
 
 namespace PokeApi.Services{
-   
-    public class UserService:IUserService{
-
-       private readonly AppSettings _appSettings;
-       private readonly IMongoCollection<User> _user;
-
-       public UserService(IPokedexDatabaseSettings settings, IOptions<AppSettings> appSettings){
-           var client = new MongoClient(settings.ConnectionString);
-           var database = client.GetDatabase(settings.DatabaseName);
-
-           _user = database.GetCollection<User>(settings.UsersCollectionsName);
-           _appSettings = appSettings.Value;
-       }
-
-       public User Authenticate(string login, string password){
-           var user = _user.Find<User>(usr => usr.Login == login && usr.Password == HashHelpers.HashPassword(password)).FirstOrDefault();
-            if(user == null)
-                return null;
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id),
-                    new Claim(ClaimTypes.Role,user.Role)
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-
-            Update(user.Login,user);
-            user.Password = null;
-
-           return user;
-       }
-
-        public IEnumerable<User> GetAll(){
-           List<User> users = _user.Find(user=>true).ToList();
-             
-            users.Select(u=>{u.Password = null;u.Token = null; return u;}).ToList();
-            return users;
-        }        
-
-        public User GetById(string id) {
-            var user = _user.Find<User>(usr => usr.Id == id).FirstOrDefault();
-
-            if (user != null) 
-                user.Password = null;
-
-            return user;
-        }
-
-        public User Create(User user){
-            user.Password = HashHelpers.HashPassword(user.Password);
-            _user.InsertOne(user);
-            user = Authenticate(user.Login,user.Password);
-            return user;
-        }
-
-        public void Update(string login, User userIn)=>_user.ReplaceOne(user=>user.Login == login,userIn);
-        
-        public void Remove(User userIn)=>_user.DeleteOne(user=>user.Login == userIn.Login);
-        
-        public void Remove(string id)=>_user.DeleteOne(user=>user.Id == id);
+    
+    public class UserService:Interfaces.IUserService{
        
+       private readonly UserRepository userRepository;       
+       public UserService(IPokedexDatabaseSettings settings,IOptions<AppSettings> appSettings){
+           userRepository = new UserRepository(settings, appSettings);
+       }
+       
+       public User Authenticate(string login, string password){
+           return userRepository.Authenticate(login,password);
+       }
+
+       public IEnumerable<User> GetAllUsers(){
+           return userRepository.GetAll();
+       }
+
+       public User GetUserById(string id){
+           return userRepository.GetById(id);
+       }
+
+       public bool CreateUser(User user){
+           return userRepository.Create(user);
+       }
+
     }
 }

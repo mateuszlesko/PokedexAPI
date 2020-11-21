@@ -20,8 +20,8 @@ namespace PokeApi.Controllers{
     public class PokemonController : ControllerBase{
         
         private readonly PokemonService _pokemonService;
-        public PokemonController(PokemonService pokemonService,UserService userService){
-            _pokemonService = pokemonService;
+        public PokemonController(IPokedexDatabaseSettings settings){
+            _pokemonService = new PokemonService(settings);
         }
 
         [AllowAnonymous]
